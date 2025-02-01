@@ -14,7 +14,7 @@ import { FITTY_OPTIONS, INBUILT_COLOR_DEFAULTS, REMOTE_REGEX } from '../constant
 import * as Icons from './webviewIcons';
 
 export function getSidebarContent() {
-    return `
+    return /*html*/`
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -66,7 +66,7 @@ export function getDashboardContent(
 
     var customCss = infos.config.get('customCss') || '';
 
-    return `
+    return /*html*/`
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -90,7 +90,7 @@ export function getDashboardContent(
         <div class="filter-wrapper">
             <span class="search-icon"/>${Icons.search}</span><input type="search" id="filter" aria-label="Filter Projects"><span id="clear" class="clear-search-icon"/>${Icons.remove}</span>
         </div>
-        ${infos.config.showTopButtons ? `
+        ${infos.config.showTopButtons ? /*html*/`
         <div class="top-action-btn reload-dashboard">
             <span data-action="reload-dashboard" title="Reload Dashboard">${Icons.reload}</span>
         </div>
@@ -164,7 +164,7 @@ function getGroupSection(
 
     var showAddProjectButton = infos.config.showAddProjectButtonTile;
 
-    return `
+    return /*html*/`
 <div class="group ${group.collapsed ? 'collapsed' : ''} ${group.projects.length === 0 ? 'no-projects' : ''
         }" data-group-id="${group.id}" ${isRecentGroup ? "is-recent-group" : "" }>
     <div class="group-title">
@@ -191,7 +191,7 @@ function getGroupSection(
 }
 
 function getTempGroupSection(totalGroupCount: number) {
-    return `
+    return /*html*/`
 <div class="group" id="tempGroup">
     <div class="group-title" data-action="add-group">
         <span>${Icons.add} New Group</span>
@@ -221,16 +221,16 @@ function getProjectDiv(project: Project, infos: DashboardInfos, isRecentGroup = 
         projectIsFile = false;
     }
 
-    return `
+    return /*html*/`
 <div class="project-container">
     <div class="project" data-id="${project.id}" data-name="${lowerName}" ${isRemote ? 'data-is-remote' : ''} ${isRecentGroup ? 'is-recent-project' : ''} ${projectIsFile ? "project-is-file" : ""}>
         <div class="project-border" style="${borderStyle}"></div>
         <div class="project-actions-wrapper">
             <div class="project-actions">
-                ${isRecentGroup ? `
+                ${isRecentGroup ? /*html*/`
                     <span data-action="add-recent" title="Add Recent Project ${projectIsFile ? "(File)" : ""}">${Icons.pin}</span>
                     <span data-action="remove-recent" title="Remove Recent Project ${projectIsFile ? "(File)" : ""}">${Icons.remove}</span>
-                ` : `
+                ` : /*html*/`
                     <span data-action="color" title="Edit Color">${Icons.palette}</span>
                     <span data-action="edit" title="Edit Project ${projectIsFile ? "(File)" : ""}">${Icons.edit}</span>
                     <span data-action="remove" title="Remove Project ${projectIsFile ? "(File)" : ""}">${Icons.remove}</span>
@@ -244,7 +244,7 @@ function getProjectDiv(project: Project, infos: DashboardInfos, isRecentGroup = 
         </div>
         <p class="project-path-info">
             ${isRemote
-            ? `<span class="remote-icon ${remoteExError ? 'error-icon' : ''
+            ? /*html*/`<span class="remote-icon ${remoteExError ? 'error-icon' : ''
             }" title="${remoteExError
                 ? 'Remote Development extension is not installed'
                 : 'Remote Project'
@@ -266,7 +266,7 @@ function getProjectDiv(project: Project, infos: DashboardInfos, isRecentGroup = 
 }
 
 function getNoProjectsDiv() {
-    return `
+    return /*html*/`
 <div class="project-container" data-nodrag>
     <div class="project no-projects" data-action="add-project">
         No projects have been added yet.
@@ -277,7 +277,7 @@ function getNoProjectsDiv() {
 }
 
 function getImportDiv() {
-    return `
+    return /*html*/`
 <div class="project-container" data-nodrag>
     <div class="project no-projects import-data" data-action="import-from-other-storage">
         Your dashboard is empty, but there are projects in your other storage. 
@@ -289,7 +289,7 @@ function getImportDiv() {
 }
 
 function getAddProjectDiv(groupId: string) {
-    return `
+    return /*html*/`
 <span class="project-container slim last" data-nodrag>
     <div class="project add-project" data-action="add-project" data-group-id="${groupId}">
         <h2 class="add-project-header">
@@ -300,12 +300,12 @@ function getAddProjectDiv(groupId: string) {
 }
 
 function getProjectContextMenu(projectIsFile: boolean = false) {
-    return `
+    return /*html*/`
 <div id="${projectIsFile ? "fileContextMenu" : "projectContextMenu"}" class="custom-context-menu">
     <div class="custom-context-menu-item" data-action="open">
         Open Project ${projectIsFile ? "(File)" : ""}
     </div>
-    ${projectIsFile ? "" : `
+    ${projectIsFile ? "" : /*html*/`
         <div class="custom-context-menu-item" data-action="open-new-window">
             Open Project In New Window
         </div>
@@ -336,7 +336,7 @@ function getProjectContextMenu(projectIsFile: boolean = false) {
 }
 
 function getGroupContextMenu() {
-    return `
+    return /*html*/`
 <div id="groupContextMenu" class="custom-context-menu">   
     <div class="custom-context-menu-item" data-action="add">
         Add Project
@@ -368,7 +368,7 @@ function getCustomStyle(config: vscode.WorkspaceConfiguration) {
     } = config;
 
     // Nested Template Strings, hooray! \o/
-    return `
+    return /*html*/`
 <style>
     :root {
         ${customProjectCardBackground && customProjectCardBackground.trim()
